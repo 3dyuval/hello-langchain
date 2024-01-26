@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { OpenAI  } from "@langchain/openai";
 
+const props = defineProps<{
+  msg: string;
+}>()
 const chatModel = new OpenAI({
   openAIApiKey: import.meta.env['APP_OPENAI_API_KEY']
 })
 
 
-const langchain = await chatModel.invoke('Hello, [...] // fill in the blank with a greeting')
+const langchain = await chatModel.invoke(props.msg)
 
 </script>
 

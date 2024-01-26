@@ -4,7 +4,7 @@ import HelloLangchain from './components/HelloLangchain.vue'
 
 <template>
   <div>
-    <a href="https://vuejs.org/" target="_blank" style="font-size: 4rem;">
+    <a href="https://js.langchain.com/docs/get_started/quickstart" target="_blank" style="font-size: 4rem;">
       🦜
     </a>
   </div>
@@ -15,22 +15,11 @@ import HelloLangchain from './components/HelloLangchain.vue'
     </div>
   </template>
     <template #default>
-      <HelloLangchain msg="Vite + Vue" />
+      <HelloLangchain msg="Hello, [...] // what word should come next?" />
     </template>
   </suspense>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
