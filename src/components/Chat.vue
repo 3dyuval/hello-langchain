@@ -34,11 +34,15 @@ async function handleUserMessage({target}: FormDataEvent) {
     <ul>
     <li v-for="msg in chat" :key="msg.id" :class="msg.type">{{ msg.text }}</li>
     </ul>
-    <form @submit.prevent="handleUserMessage">
+    <form
+        autocomplete="off"
+        @submit.prevent="handleUserMessage">
+      <fieldset class="user-input">
       <input name="message" class="chat-user-input" type="text" size="100"
     placeholder="Type your message here..."
     />
       <button type="submit">Send</button>
+      </fieldset>
     </form>
   </div>
 </template>
@@ -46,6 +50,13 @@ async function handleUserMessage({target}: FormDataEvent) {
 <style lang="scss">
 
 .chat-card {
+  margin: 0 auto;
+  max-width: min(500px, 50%);
+  padding: 1rem;
+  border-radius: 1rem;
+  &:focus-within {
+    background: #1c1c1c;
+  }
   li {
     list-style-type: none;
     &.user {
@@ -68,6 +79,17 @@ async function handleUserMessage({target}: FormDataEvent) {
   flex-direction: column;
 }
 
+fieldset.user-input {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  button  {
+    padding: 1rem;
+  }
+}
 .chat-user-input {
   all: unset;
   outline: 1px solid rgba(204, 204, 204, 0.25);
@@ -76,7 +98,6 @@ async function handleUserMessage({target}: FormDataEvent) {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 10px;
   height: 50px;
   text-align: left;
   &:focus {
