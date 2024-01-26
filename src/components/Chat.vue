@@ -8,27 +8,32 @@ const chatModel = new OpenAI({
 })
 
 
-chat.value = await new Promise((resolve, reject) => {
+chat.value = await new Promise((resolve) => {
   setTimeout(() => {
-    resolve([{text: 'hello. I am a chat bot'}, {text: 'How can I help?'}])
+    resolve([
+      {text: 'Hello, I am Langchain 🦜', type: 'bot'},
+      {text: 'How can I help you?', type: 'bot'}
+    ])
   }, 1000)
 });
 
 async function handleUserMessage({target}: FormDataEvent) {
   const userMessage = target.message.value
-  chat.value.push({text: userMessage})
+  chat.value.push({text: userMessage, type: 'user'})
 
   const response = await chatModel.invoke(userMessage).then((res) => {
     target.message.value = ''
     return res
   })
-  chat.value.push({text: response})
+  chat.value.push({text: response, type: 'bot'})
 }
 </script>
 
 <template>
   <div class="chat-card">
-    <li v-for="msg in chat" :key="msg.id">{{ msg.text }}</li>
+    <ul>
+    <li v-for="msg in chat" :key="msg.id" :class="msg.type">{{ msg.text }}</li>
+    </ul>
     <form @submit.prevent="handleUserMessage">
       <input name="message" class="chat-user-input" type="text" size="100"
     placeholder="Type your message here..."
@@ -43,6 +48,19 @@ async function handleUserMessage({target}: FormDataEvent) {
 .chat-card {
   li {
     list-style-type: none;
+    &.user {
+      text-align: right;
+      padding: .5rem;
+      margin: 1rem 0;
+      max-width: max-content;
+      border-radius: .5rem;
+      background-color: #f5f5f5;
+      color: #1a1a1a;
+
+    }
+    &.bot {
+      text-align: left;
+    }
   }
 
   display: flex;
