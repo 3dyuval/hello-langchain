@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Chat from './components/Chat.vue'
+import ChatChain from "./components/ChatChain.vue";
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import Chat from './components/Chat.vue'
     </div>
   </template>
     <template #default>
-      <Chat  />
+      <chat-chain  />
     </template>
   </suspense>
 </template>
