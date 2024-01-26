@@ -7,6 +7,7 @@ const chatModel = new OpenAI({
   openAIApiKey: import.meta.env['APP_OPENAI_API_KEY']
 })
 
+const chatCard = ref()
 
 chat.value = await new Promise((resolve) => {
   setTimeout(() => {
@@ -17,20 +18,24 @@ chat.value = await new Promise((resolve) => {
   }, 1000)
 });
 
+function scrollToBottom() {
+  chatCard.value.scrollTop = chatCard.value.scrollHeight;
+}
 async function handleUserMessage({target}: FormDataEvent) {
   const userMessage = target.message.value
   chat.value.push({text: userMessage, type: 'user'})
-
+  scrollToBottom()
   const response = await chatModel.invoke(userMessage).then((res) => {
     target.message.value = ''
     return res
   })
   chat.value.push({text: response, type: 'bot'})
+  scrollToBottom()
 }
 </script>
 
 <template>
-  <div class="chat-card">
+  <div class="chat-card" ref="chatCard">
     <ul>
     <li v-for="msg in chat" :key="msg.id" :class="msg.type">{{ msg.text }}</li>
     </ul>
@@ -50,6 +55,8 @@ async function handleUserMessage({target}: FormDataEvent) {
 <style lang="scss">
 
 .chat-card {
+  max-height: 50vh;
+  overflow: auto;
   margin: 0 auto;
   max-width: min(500px, 50%);
   padding: 1rem;
