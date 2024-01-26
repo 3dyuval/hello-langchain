@@ -18,7 +18,10 @@ async function handleUserMessage({target}: FormDataEvent) {
   const userMessage = target.message.value
   chat.value.push({text: userMessage})
 
-  const response = await chatModel.invoke(userMessage)
+  const response = await chatModel.invoke(userMessage).then((res) => {
+    target.message.value = ''
+    return res
+  })
   chat.value.push({text: response})
 }
 </script>
