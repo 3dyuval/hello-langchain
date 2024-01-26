@@ -13,6 +13,7 @@
     "@langchain/google-genai": "^0.0.7",
     "@langchain/openai": "^0.0.12",
     "langchain": "^0.1.7",
+    "sass": "^1.70.0",
     "vue": "^3.3.11"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HelloLangchain from './components/HelloLangchain.vue'
+import Chat from './components/Chat.vue'
 </script>
 
 <template>
@@ -15,7 +15,7 @@ import HelloLangchain from './components/HelloLangchain.vue'
     </div>
   </template>
     <template #default>
-      <HelloLangchain msg="Hello, [...] // what word should come next?" />
+      <Chat  />
     </template>
   </suspense>
 </template>
